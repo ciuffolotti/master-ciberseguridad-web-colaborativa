@@ -19,6 +19,7 @@ Public.register.name=Username
 Public.register.oldPassword=Old password
 Public.register.password=New password
 Public.register.passwordCheck=Confirm new password
+Public.register.email=Email
 Public.register.registerButton=Sign up
 Public.register.validation.name=Please enter a display name we can use to address you
 Public.register.validation.password=Please enter a password

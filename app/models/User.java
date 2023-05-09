@@ -17,12 +17,14 @@ public class User {
     private String password;
     private String type;
     private int mark;
+    private String email;
 
     public User(JsonObject json) {
         this.username = json.has(Constants.User.FIELD_USERNAME) ? json.get(Constants.User.FIELD_USERNAME).getAsString() : "";
         this.password = json.has(Constants.User.FIELD_PASSWORD) ? json.get(Constants.User.FIELD_PASSWORD).getAsString() : "";
         this.mark = json.has(Constants.User.FIELD_MARK) ? json.get(Constants.User.FIELD_MARK).getAsInt() : 0;
         this.type = json.has(Constants.User.FIELD_TYPE) ? json.get(Constants.User.FIELD_TYPE).getAsString() : "teacher";
+        this.email = json.has(Constants.User.FIELD_EMAIL) ? json.get(Constants.User.FIELD_EMAIL).getAsString() : "";
     }
 
     public User(String username, String password, String type, Integer mark) {
@@ -30,6 +32,7 @@ public class User {
         this.password = password;
         this.mark = mark;
         this.type = type;
+        this.email = email;
     }
 
     public String getUsername() {
@@ -64,6 +67,14 @@ public class User {
         this.mark = mark;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public File getFile(){
         return new File(Constants.User.USERS_FOLDER + "/" + username);
     }
@@ -74,6 +85,7 @@ public class User {
         json.addProperty(Constants.User.FIELD_PASSWORD, password);
         json.addProperty(Constants.User.FIELD_TYPE, type);
         json.addProperty(Constants.User.FIELD_MARK, mark);
+        json.addProperty(Constants.User.FIELD_EMAIL, email);
 
         File file = getFile();
         if (file.exists()){
@@ -130,4 +142,15 @@ public class User {
 
         return rv;
     }
+
+    public static boolean exists(String email) {
+        List<User> users = loadStudents();
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }
