@@ -126,7 +126,7 @@ public class User {
         return false;
     }
 
-    public static List<User> loadStudents(){
+    public static List<User> loadUsers(){
         List<User> rv = new ArrayList<User>();
 
         File f = new File(Constants.User.USERS_FOLDER + "/");
@@ -135,22 +135,20 @@ public class User {
 
         for (File u : users){
             User user = new User(FileUtils.getJsonFromFile(u));
-            if (user.getType().equals("student")){
                 rv.add(user);
-            }
         }
 
         return rv;
     }
 
     public static boolean exists(String email) {
-        List<User> users = loadStudents();
+        List<User> users = loadUsers();
         for (User user : users) {
             if (user.getEmail().equals(email)) {
-                return true;
+            return true;
             }
         }
         return false;
-    }
+        }
     
 }
