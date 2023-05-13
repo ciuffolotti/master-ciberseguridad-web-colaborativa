@@ -127,19 +127,40 @@ public class User {
     }
 
     public static List<User> loadUsers(){
-        List<User> rv = new ArrayList<User>();
-
-        File f = new File(Constants.User.USERS_FOLDER + "/");
-        File[] users = f.listFiles();
-
-
-        for (File u : users){
-            User user = new User(FileUtils.getJsonFromFile(u));
-                rv.add(user);
+        List<User> users = new ArrayList<User>();
+        File f = new File(USERS_FOLDER);
+        File[] files = f.listFiles();
+    
+        for (File file : files){
+            User user = new User(FileUtils.getJsonFromFile(file));
+            users.add(user);
         }
-
-        return rv;
+        return users;
     }
+
+    public static List<User> loadStudents(){
+        List<User> users = loadUsers();
+        List<User> students = new ArrayList<User>();
+    
+        for (User user : users){
+            if (user.getType().equals("student")){
+                students.add(user);
+            }
+        }
+        return students;
+    }
+    
+    public static List<User> loadTeachers(){
+        List<User> users = loadUsers();
+        List<User> teachers = new ArrayList<User>();
+    
+        for (User user : users){
+            if (user.getType().equals("teacher")){
+                teachers.add(user);
+            }
+        }
+        return teachers;
+    }    
 
     public static boolean exists(String email) {
         List<User> users = loadUsers();
